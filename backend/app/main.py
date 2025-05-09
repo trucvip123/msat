@@ -1,14 +1,20 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from app.core.database import engine
 from app.models.base import Base
 from app.routers import auth
 from app.core.config import settings
 
+security = HTTPBearer()
+
 app = FastAPI(
     title="Msat Manager Backend",
     description="Backend API for MSAT Manager",
-    version="1.0.0"
+    version="1.0.0",
+    swagger_ui_init_oauth={
+        "usePkceWithAuthorizationCodeGrant": True
+    }
 )
 
 # Configure CORS
