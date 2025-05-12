@@ -12,11 +12,16 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
+# Copy the rest of the application
 COPY . .
 
-# Create non-root user
-RUN useradd -m appuser && chown -R appuser:appuser /app
+# Create appuser and set permissions
+RUN useradd -m appuser && \
+    mkdir -p /app/logs && \
+    chown -R appuser:appuser /app && \
+    chmod 755 /app/logs
+
+# Switch to non-root user
 USER appuser
 
 # Command to run the application

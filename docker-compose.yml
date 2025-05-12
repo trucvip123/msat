@@ -18,8 +18,10 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - PYTHONUNBUFFERED=1  # This ensures Python output is sent straight to terminal
     volumes:
       - ./backend:/app
+      - ./logs:/app/logs
     depends_on:
       db:
         condition: service_healthy
@@ -28,6 +30,11 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   db:
     image: mysql:8
@@ -53,6 +60,11 @@ services:
       start_period: 10s
     env_file:
       - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   mysql_data:

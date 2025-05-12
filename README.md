@@ -59,6 +59,11 @@ MYSQL_PORT=3306
    - Backend API: http://localhost:8000
    - MySQL Database: localhost:3306
 
+5. Console output:
+    ```bash
+    docker-compose logs -f backend
+    ```
+    
 ## API Documentation
 
 ### Authentication

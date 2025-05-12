@@ -12,6 +12,18 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
     ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
     
+    # Email settings
+    SMTP_TLS: bool = True  # Always use TLS for Gmail
+    SMTP_PORT: int = 587  # Standard port for Gmail SMTP with STARTTLS
+    SMTP_HOST: str = "smtp.gmail.com"
+    SMTP_USER: str = os.getenv("SMTP_USER", "")
+    SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD", "")  # Use App Password for Gmail
+    EMAILS_FROM_EMAIL: str = os.getenv("EMAILS_FROM_EMAIL", "")
+    EMAILS_FROM_NAME: str = os.getenv("EMAILS_FROM_NAME", "MSAT Manager")
+    
+    # Password reset token expiration (in minutes)
+    PASSWORD_RESET_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("PASSWORD_RESET_TOKEN_EXPIRE_MINUTES", "30"))
+    
     class Config:
         env_file = ".env"
 
